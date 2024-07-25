@@ -18,10 +18,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
             $table->string('picture_user', 255)->nullable();
-            $table->bigInteger('id_blog');
-            $table->foreign('id_blog')
+            $table->bigInteger('id_role');
+            $table->foreign('id_role')
                 ->references('id')
-                ->on('blogs');
+                ->on('roles');
             $table->rememberToken();
             $table->timestamps();
         });

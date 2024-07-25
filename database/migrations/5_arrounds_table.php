@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('zipcode_around', 5, 0);
             $table->string('lat_around', 50);
             $table->string('long_around', 50);
-            $table->bigInteger('id_category');
-            $table->foreign('id')->references('id_category')->on('categories_ar');
+            $table->bigInteger('id_category_ar');
+            $table->foreign('id')->references('id_category_ar')->on('categories_ar');
             $table->timestamps();
         });
     }

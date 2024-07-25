@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('zipcode_escape', 5, 0);
             $table->string('lat_escape', 50);
             $table->string('long_escape', 50);
-            $table->bigInteger('id_category');
-            $table->foreign('id')->references('id_category')->on('categories_eg');
+            $table->bigInteger('id_category_eg');
+            $table->foreign('id')->references('id_category_eg')->on('categories_eg');
             $table->timestamps();
         });
     }
