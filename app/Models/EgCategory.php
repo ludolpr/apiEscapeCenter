@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class EgCategory extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name_role',
-        'description_role',
+        'name_category_eg',
+        'description_category_eg',
     ];
 
-    public function user()
+    public function escape_game()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(EscapeGame::class);
     }
 }

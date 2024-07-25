@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('arrounds', function (Blueprint $table) {
+        Schema::create('arounds', function (Blueprint $table) {
             $table->id();
             $table->string('name_around', 50);
             $table->text('description_around', 400);
             $table->string('picture_around', 255);
-            $table->string('adress_around', 155);
+            $table->string('address_around', 155);
             $table->string('town_around', 100);
             $table->string('zipcode_around', 5, 0);
             $table->string('lat_around', 50);
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('arrounds');
+        Schema::dropIfExists('arounds');
     }
 };

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name_escape', 50);
             $table->text('description_escape', 400);
             $table->string('picture_escape', 255);
-            $table->string('adress_escape', 155);
+            $table->string('address_escape', 155);
             $table->string('town_escape', 100);
             $table->string('zipcode_escape', 5, 0);
             $table->string('lat_escape', 50);

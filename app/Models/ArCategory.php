@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class ArCategory extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name_role',
-        'description_role',
+        'name_category_ar',
+        'description_category_ar',
     ];
 
-    public function user()
+    public function around()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Around::class);
     }
 }

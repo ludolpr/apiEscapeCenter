@@ -13,15 +13,43 @@ class AroundController extends Controller
      */
     public function index()
     {
-        //
+        $around = Around::all();
+        return response()->json($around);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Around $around)
     {
-        //
+        $request->validate([
+            'name_around' => 'required|max:50',
+            'description_around' => 'required|max:400',
+            'picture_around' => 'required|max:255',
+            'address_around' => 'required|max:155',
+            'town_around' => 'required|max:100',
+            'zipcode_around' => 'required|max:5',
+            'lat_around' => 'required|max:100',
+            'long_around' => 'required|max:100',
+            'id_category_ar' => 'required'
+        ]);
+
+        $around = Around::create([
+            'name_around' => $request->name_around,
+            'description_around' => $request->description_around,
+            'picture_around' => $request->picture_around,
+            'address_around' => $request->address_around,
+            'town_around' => $request->town_around,
+            'zipcode_around' => $request->zipcode_around,
+            'lat_around' => $request->lat_around,
+            'long_around' => $request->long_around,
+            'id_category_ar' => $request->id_category_ar
+        ]);
+
+        return response()->json([
+            'status' => 'Success',
+            'data' => $around,
+        ]);
     }
 
     /**
@@ -29,7 +57,7 @@ class AroundController extends Controller
      */
     public function show(Around $around)
     {
-        //
+        return response()->json($around);
     }
 
     /**
@@ -37,14 +65,37 @@ class AroundController extends Controller
      */
     public function update(Request $request, Around $around)
     {
-        //
+        $request->validate([
+            'name_around' => 'required|max:50',
+            'description_around' => 'required|max:400',
+            'picture_around' => 'required|max:255',
+            'address_around' => 'required|max:155',
+            'town_around' => 'required|max:100',
+            'zipcode_around' => 'required|max:5',
+            'lat_around' => 'required|max:100',
+            'long_around' => 'required|max:100',
+            'id_category_ar' => 'required'
+
+        ]);
+
+        $around->update($request->all());
+
+        return response()->json([
+            "status" => "Mise à jour avec succèss",
+            "data" => $around
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    
     public function destroy(Around $around)
     {
-        //
+        $around->delete();
+
+        return response()->json([
+            'status' => 'Delete OK',
+        ]);
     }
 }
