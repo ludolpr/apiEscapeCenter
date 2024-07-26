@@ -22,6 +22,8 @@ class AroundController extends Controller
      */
     public function store(Request $request, Around $around)
     {
+
+
         $request->validate([
             'name_around' => 'required|max:50',
             'description_around' => 'required|max:400',
@@ -31,7 +33,7 @@ class AroundController extends Controller
             'zipcode_around' => 'required|max:5',
             'lat_around' => 'required|max:100',
             'long_around' => 'required|max:100',
-            'id_category_ar' => 'required'
+            'id_category_ar' => 'required',
         ]);
 
         $around = Around::create([
@@ -46,6 +48,9 @@ class AroundController extends Controller
             'id_category_ar' => $request->id_category_ar
         ]);
 
+        $escapes = $request->escapes;
+
+        $around->escapes()->attach($escapes);
         return response()->json([
             'status' => 'Success',
             'data' => $around,
@@ -65,6 +70,7 @@ class AroundController extends Controller
      */
     public function update(Request $request, Around $around)
     {
+
         $request->validate([
             'name_around' => 'required|max:50',
             'description_around' => 'required|max:400',
@@ -79,6 +85,10 @@ class AroundController extends Controller
         ]);
 
         $around->update($request->all());
+
+        $escapes = $request->escapes;
+
+        $around->escapes()->sync($escapes);
 
         return response()->json([
             "status" => "Mise à jour avec succèss",

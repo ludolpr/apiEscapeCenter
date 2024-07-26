@@ -10,17 +10,17 @@ class EscapeGameAround extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_around',
-        'id_escape_game',
+        'around_id',
+        'escape_game_id',
     ];
 
     public function escape_game()
     {
-        return $this->hasMany(EscapeGame::class);
+        return $this->belongsToMany(EscapeGame::class);
     }
 
     public function around()
     {
-        return $this->hasMany(Around::class);
+        return $this->belongsToMany(Around::class);
     }
 }

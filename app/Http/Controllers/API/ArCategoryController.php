@@ -13,63 +13,63 @@ class ArCategoryController extends Controller
      */
     public function index()
     {
-        $categoryAr = ArCategory::all();
-        return response()->json($categoryAr);
+        $categoryar = ArCategory::all();
+        return response()->json($categoryar);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ArCategory $categoryAr)
+    public function store(Request $request, ArCategory $categoryar)
     {
         $request->validate([
             'name_category_ar' => 'required|max:50',
             'description_category_ar' => 'required|max:400',
         ]);
 
-        $categoryAr = ArCategory::create([
+        $categoryar = ArCategory::create([
             'name_category_ar' => $request->name_category_ar,
             'description_category_ar' => $request->description_category_ar
         ]);
 
         return response()->json([
             'status' => 'Success',
-            'data' => $categoryAr,
+            'data' => $categoryar,
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ArCategory $categoryAr)
+    public function show(ArCategory $categoryar)
     {
-        return response()->json($categoryAr);
+        return response()->json($categoryar);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ArCategory $categoryAr)
+    public function update(Request $request, ArCategory $categoryar)
     {
         $request->validate([
             'name_category_ar' => 'required|max:50',
             'description_category_ar' => 'required|max:400',
         ]);
 
-        $categoryAr->update($request->all());
+        $categoryar->update($request->all());
 
         return response()->json([
             "status" => "Mise à jour avec succèss",
-            "data" => $categoryAr
+            "data" => $categoryar
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ArCategory $categoryAr)
+    public function destroy(ArCategory $categoryar)
     {
-        $categoryAr->delete();
+        $categoryar->delete();
 
         return response()->json([
             'status' => 'Delete OK',

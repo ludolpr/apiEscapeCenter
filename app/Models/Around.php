@@ -25,4 +25,8 @@ class Around extends Model
     {
         return $this->belongsTo(ArCategory::class);
     }
+    public function escapes()
+    {
+        return $this->belongsToMany(EscapeGame::class);
+    }
 }

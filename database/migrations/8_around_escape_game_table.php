@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('escape_games_arounds', function (Blueprint $table) {
+        Schema::create('around_escape_game', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_around');
-            $table->bigInteger('id_escape_game');
-            $table->foreign('id_around')->references('id')->on('arounds');
-            $table->foreign('id_escape_game')->references('id')->on('escape_games');
+            $table->bigInteger('around_id');
+            $table->bigInteger('escape_game_id');
+            $table->foreign('around_id')->references('id')->on('arounds');
+            $table->foreign('escape_game_id')->references('id')->on('escape_games');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('escape_games_arounds');
+        Schema::dropIfExists('around_escape_game');
     }
 };

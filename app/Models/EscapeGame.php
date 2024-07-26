@@ -25,4 +25,8 @@ class EscapeGame extends Model
     {
         return $this->belongsTo(EgCategory::class);
     }
+    public function arounds()
+    {
+        return $this->belongsToMany(Around::class);
+    }
 }

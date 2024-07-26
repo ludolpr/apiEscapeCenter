@@ -21,56 +21,56 @@ class EgCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, EgCategory $categoryEg)
+    public function store(Request $request, EgCategory $categoryeg)
     {
         $request->validate([
             'name_category_eg' => 'required|max:50',
             'description_category_eg' => 'required|max:400',
         ]);
 
-        $categoryEg = EgCategory::create([
+        $categoryeg = EgCategory::create([
             'name_category_eg' => $request->name_category_eg,
             'description_category_eg' => $request->description_category_eg
         ]);
 
         return response()->json([
             'status' => 'Success',
-            'data' => $categoryEg,
+            'data' => $categoryeg,
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(EgCategory $categoryEg)
+    public function show(EgCategory $categoryeg)
     {
-        return response()->json($categoryEg);
+        return response()->json($categoryeg);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EgCategory $categoryEg)
+    public function update(Request $request, EgCategory $categoryeg)
     {
         $request->validate([
             'name_category_eg' => 'required|max:50',
             'description_category_eg' => 'required|max:400',
         ]);
 
-        $categoryEg->update($request->all());
+        $categoryeg->update($request->all());
 
         return response()->json([
             "status" => "Mise à jour avec succèss",
-            "data" => $categoryEg
+            "data" => $categoryeg
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EgCategory $categoryEg)
+    public function destroy(EgCategory $categoryeg)
     {
-        $categoryEg->delete();
+        $categoryeg->delete();
 
         return response()->json([
             'status' => 'Delete OK',
