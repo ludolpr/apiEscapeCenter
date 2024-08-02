@@ -16,10 +16,10 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 //Seulement accessible via le JWT
-Route::middleware('auth:api')->group(function () {
+// Route::middleware('auth:api')->group(function () {
     Route::get('/currentuser', [UserController::class, 'currentUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
-});
+// });
 
 
 

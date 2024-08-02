@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\EscapeGame;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EscapeGameController extends Controller
 {
@@ -25,19 +26,28 @@ class EscapeGameController extends Controller
         $request->validate([
             'name_escape' => 'required|max:50',
             'description_escape' => 'required|max:400',
-            'picture_escape' => 'required|max:255',
+            'picture_escape' => 'required|image|max:5000',
             'address_escape' => 'required|max:155',
             'town_escape' => 'required|max:100',
             'zipcode_escape' => 'required|max:5',
             'lat_escape' => 'required|max:100',
             'long_escape' => 'required|max:100',
             'id_category_eg' => 'required',
-
         ]);
+
+        $filename = "";
+        if ($request->hasFile('picture_escape')) {
+            $filenameWithExt = $request->file('picture_escape')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('picture_escape')->getClientOriginalExtension();
+            $filename = $filename . '_' . time() . '.' . $extension;
+            $request->file('picture_escape')->storeAs('public/uploads/escapes', $filename);
+        }
+
         $escape = EscapeGame::create([
             'name_escape' => $request->name_escape,
             'description_escape' => $request->description_escape,
-            'picture_escape' => $request->picture_escape,
+            'picture_escape' => $filename,
             'address_escape' => $request->address_escape,
             'town_escape' => $request->town_escape,
             'zipcode_escape' => $request->zipcode_escape,
@@ -47,7 +57,6 @@ class EscapeGameController extends Controller
         ]);
 
         $arounds = $request->arounds;
-
         $escape->arounds()->attach($arounds);
 
         return response()->json([
@@ -72,7 +81,7 @@ class EscapeGameController extends Controller
         $request->validate([
             'name_escape' => 'required|string|max:50',
             'description_escape' => 'required|string|max:400',
-            'picture_escape' => 'required|image',
+            'picture_escape' => 'sometimes|image|max:5000',
             'address_escape' => 'required|max:155',
             'town_escape' => 'required|string|max:100',
             'zipcode_escape' => 'required|max:5',
@@ -81,13 +90,25 @@ class EscapeGameController extends Controller
             'id_category_eg' => 'required|integer'
         ]);
 
+        if ($request->hasFile('picture_escape')) {
+            // Delete old file
+            if ($escape->picture_escape) {
+                Storage::delete('public/uploads/escapes/' . $escape->picture_escape);
+            }
 
-        $escape->update($request->all());
+            $filenameWithExt = $request->file('picture_escape')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('picture_escape')->getClientOriginalExtension();
+            $filename = $filename . '_' . time() . '.' . $extension;
+            $request->file('picture_escape')->storeAs('public/uploads/escapes', $filename);
+
+            $escape->picture_escape = $filename;
+        }
+
+        $escape->update($request->except('picture_escape'));
 
         $arounds = $request->arounds;
-
         $escape->arounds()->sync($arounds);
-
 
         return response()->json([
             "status" => "Mise à jour avec succès",
@@ -95,13 +116,15 @@ class EscapeGameController extends Controller
         ]);
     }
 
-
     /**
      * Remove the specified resource from storage.
      */
-
     public function destroy(EscapeGame $escape)
     {
+        if ($escape->picture_escape) {
+            Storage::delete('public/uploads/escapes/' . $escape->picture_escape);
+        }
+
         $escape->delete();
 
         return response()->json([

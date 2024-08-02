@@ -24,7 +24,7 @@ class BlogController extends Controller
     {
         $request->validate([
             'name_blog' => 'required|max:50',
-            'picture_blog' => 'required|max:255',
+            'picture_blog' => 'required|max:5000',
             'description_blog' => 'required|max:400',
             'id_user' => 'required|max:50'
         ]);
@@ -68,8 +68,9 @@ class BlogController extends Controller
     {
         $request->validate([
             'name_blog' => 'required|max:50',
-            'picture_blog' => 'required|max:255',
+            'picture_blog' => 'required|max:5000',
             'description_blog' => 'required|max:400',
+            'id_user' => 'required|max:50'
         ]);
 
         $blog->update($request->all());

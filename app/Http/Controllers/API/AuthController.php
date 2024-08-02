@@ -25,7 +25,7 @@ class AuthController extends Controller
             'name' => 'required|max:100',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
-            'picture_user' => 'nullable|max:255',
+            'picture_user' => 'nullable|max:5000',
             'id_role' => 'sometimes|integer|exists:roles,id',
         ]);
 
